@@ -73,23 +73,81 @@ export default function About() {
                     transition={{ duration: 1, ease: "easeOut" }}
                     className="w-full z-20"
                 >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-4 text-primary drop-shadow-[0_0_15px_rgba(0,255,255,0.5)]">
-                        ABOUT
-                    </h2>
-                    <a href="mailto:alwineldhose7@gmail.com" className="text-sm md:text-base font-mono text-zinc-500 hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(176,38,255,0.8)] transition-colors block mb-12 cursor-none">
+                    <motion.h2 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="text-4xl md:text-5xl lg:text-7xl font-black uppercase tracking-tighter mb-4 text-primary drop-shadow-[0_0_15px_rgba(0,255,255,0.5)]"
+                    >
+                        ABOUT ME
+                    </motion.h2>
+                    <motion.a 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        href="mailto:alwineldhose7@gmail.com" 
+                        className="text-sm md:text-base font-mono text-zinc-500 hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(176,38,255,0.8)] transition-colors block mb-12 cursor-none"
+                    >
                         alwineldhose7@gmail.com
-                    </a>
+                    </motion.a>
 
-                    <p className="text-base md:text-lg text-zinc-300 font-light leading-loose max-w-md">
-                        Next.js Specialist & Full-Stack Developer with over a year of experience focusing on building high-performance, maintainable web applications. I excel in implementing robust solutions prioritizing Server-Side Rendering (SSR) and optimal user experiences. My greatest strength is quickly mastering complex frameworks to constantly streamline modern infrastructure.
-                    </p>
+                    <div className="space-y-6 text-sm md:text-base text-zinc-300 font-light leading-relaxed max-w-xl">
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                        >
+                            I am a Full-Stack Developer currently working at 2Base Technologies with over 1.5 years of professional experience building modern web applications and AI-driven platforms.
+                        </motion.p>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.5 }}
+                        >
+                            I started my journey as a Software Developer Intern, where I quickly developed strong expertise in Next.js and frontend architecture by building an internal Next.js Admin Dashboard Starter Kit for the company.
+                        </motion.p>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.6 }}
+                        >
+                            Since then, I have worked on multiple internal and client projects, contributing to AI platforms, enterprise dashboards, and highly interactive websites. My work ranges from frontend architecture and UI development to backend integration using Python and Laravel.
+                        </motion.p>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.7 }}
+                        >
+                            I enjoy creating modern, high-performance interfaces and continuously explore new technologies such as Three.js and advanced animation frameworks to push the boundaries of web experiences.
+                        </motion.p>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.8 }}
+                        >
+                            Currently, I also contribute to the official company website development, implementing both frontend and backend features.
+                        </motion.p>
+                    </div>
 
-                    <div className="mt-16 pt-8 border-t border-zinc-800 inline-block">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 1 }}
+                        className="mt-16 pt-8 border-t border-zinc-800 inline-block"
+                    >
                         <p className="text-xs tracking-widest text-zinc-500 uppercase font-bold">
                             Kerala, Kothamangalam<br />
                             India
                         </p>
-                    </div>
+                    </motion.div>
                 </motion.div>
 
 
