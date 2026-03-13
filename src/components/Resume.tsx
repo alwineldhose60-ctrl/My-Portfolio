@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import ScrollyCanvas from "./ScrollyCanvas";
 
 // Helper component for animated progress bars
 function ProgressBar({ label, percentage }: { label: string; percentage: number }) {
@@ -34,8 +35,13 @@ function ProgressBar({ label, percentage }: { label: string; percentage: number 
 
 export default function Resume() {
     return (
-        <section id="resume" className="py-32 text-white">
-            <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
+        <section id="resume" className="py-32 text-white h-auto">
+                    <div className="absolute -z-10">
+                <ScrollyCanvas />
+<div className="bg-gradient-to-b from-black via-black/80 to-black h-full absolute w-full  top-0"/>
+
+        </div>
+            <div className="container mx-auto px-6 lg:px-12 max-w-7xl z-10">
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24">
 

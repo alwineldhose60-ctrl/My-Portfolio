@@ -3,196 +3,201 @@
 import { useEffect, useRef } from "react";
 
 class Particle {
-    x: number;
-    y: number;
-    angle: number;
-    radius: number;
-    baseRadius: number;
-    speed: number;
-    sizeX: number;
-    sizeY: number;
-    color: string;
+  r: number;
+  baseAngle: number;
+  size: number;
+  color: string;
+  opacity: number;
 
-    constructor(canvasWidth: number, canvasHeight: number) {
-        // Distribute particles in a large circle centered roughly on the right side of the screen
-        const centerX = canvasWidth * 0.7; // 70% across the screen
-        const centerY = canvasHeight * 0.5;
+  x = 0;
+  y = 0;
+  baseX = 0;
+  baseY = 0;
+  vx = 0;
+  vy = 0;
 
-        // Spread them out across a huge radius
-        this.baseRadius = Math.random() * (canvasWidth * 0.8) + 50;
-        this.radius = this.baseRadius;
-        this.angle = Math.random() * Math.PI * 2;
+  constructor(r: number, angle: number) {
+    this.r = r;
+    this.baseAngle = angle;
 
-        // Slower speed for inner rings, faster for outer to maintain "solid" spiral feel
-        this.speed = (Math.random() * 0.0005 + 0.0002) * (this.baseRadius > 500 ? 0.5 : 1.5);
+    this.size = Math.random() * 1.2 + 0.6;
+    this.opacity = Math.random() * 0.5 + 0.5;
 
-        // Dash shape
-        this.sizeX = Math.random() * 4 + 2; // 2 to 6px long
-        this.sizeY = Math.random() * 1.5 + 0.5; // very thin vertically
+    this.color =
+      Math.random() > 0.5
+        ? "0,255,255"     // Neon Cyan
+        : "176,38,255";   // Neon Purple
+  }
 
-        // Colors: mostly pure white, occasionally sci-fi cyan/blue
-        const isBlue = Math.random() > 0.85;
-        const opacity = Math.random() * 0.6 + 0.2; // 0.2 to 0.8
+  updateBase(cx: number, cy: number, rotation: number) {
+    const angle = this.baseAngle + rotation;
+    this.baseX = cx + Math.cos(angle) * this.r;
+    this.baseY = cy + Math.sin(angle) * this.r;
+  }
 
-        if (isBlue) {
-            this.color = `rgba(100, 180, 255, ${opacity})`;
-        } else {
-            this.color = `rgba(255, 255, 255, ${opacity})`;
-        }
+  update(mouseX: number, mouseY: number, active: boolean) {
+    const spring = 0.035;
+    const friction = 0.87;
 
-        this.x = centerX + Math.cos(this.angle) * this.radius;
-        this.y = centerY + Math.sin(this.angle) * this.radius;
+    let targetX = this.baseX;
+    let targetY = this.baseY;
+
+    if (active) {
+      const dx = this.x - mouseX;
+      const dy = this.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const repelRadius = 150;
+
+      if (dist < repelRadius && dist > 0.1) {
+        const force = (repelRadius - dist) / repelRadius;
+        const push = force * 120;
+
+        targetX += (dx / dist) * push;
+        targetY += (dy / dist) * push;
+      }
     }
 
-    draw(ctx: CanvasRenderingContext2D, centerX: number, centerY: number) {
-        ctx.save();
-        ctx.translate(this.x, this.y);
+    const dx = targetX - this.x;
+    const dy = targetY - this.y;
 
-        // Rotate the dash to match its orbit tangentially
-        // Add PI/2 (90deg) so it's tangential instead of pointing to center
-        ctx.rotate(this.angle + Math.PI / 2);
+    this.vx += dx * spring;
+    this.vy += dy * spring;
 
-        ctx.fillStyle = this.color;
+    this.vx *= friction;
+    this.vy *= friction;
 
-        // Draw centered rectangle with rounded edges (dash)
-        ctx.beginPath();
-        // Since we rotated the context, we draw it horizontally along its new local X axis
-        ctx.roundRect(-this.sizeX / 2, -this.sizeY / 2, this.sizeX, this.sizeY, this.sizeY);
-        ctx.fill();
+    this.x += this.vx;
+    this.y += this.vy;
+  }
 
-        ctx.restore();
-    }
+  draw(ctx: CanvasRenderingContext2D, cx: number, cy: number) {
+    const dx = cx - this.x;
+    const dy = cy - this.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
 
-    update(mouse: { x: number; y: number; active: boolean }, centerX: number, centerY: number) {
-        // Base polar rotation
-        this.angle -= this.speed; // Negative for counter-clockwise
+    const dirX = dist > 0.1 ? dx / dist : 0;
+    const dirY = dist > 0.1 ? dy / dist : 0;
 
-        // Subtle magnetic mouse interaction
-        if (mouse.active) {
-            const dx = mouse.x - this.x;
-            const dy = mouse.y - this.y;
-            const distToMouse = Math.sqrt(dx * dx + dy * dy);
+    const dashLength = 4 + this.r * 0.01;
 
-            // Interaction radius
-            if (distToMouse < 250) {
-                // If close to cursor, slightly bend radius outwards or inwards
-                const force = (250 - distToMouse) / 250;
-                // Add a swirling force (perpendicular to mouse)
-                this.angle -= force * 0.002;
-                // Add a slight repulsive force
-                this.radius += force * 0.5;
-            } else {
-                // Spring back to base radius
-                if (this.radius !== this.baseRadius) {
-                    this.radius += (this.baseRadius - this.radius) * 0.05;
-                }
-            }
-        } else {
-            // Spring back to base radius
-            if (this.radius !== this.baseRadius) {
-                this.radius += (this.baseRadius - this.radius) * 0.05;
-            }
-        }
+    ctx.beginPath();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(
+      this.x + dirX * dashLength,
+      this.y + dirY * dashLength
+    );
 
-        // Convert back to cartesian for drawing
-        this.x = centerX + Math.cos(this.angle) * this.radius;
-        this.y = centerY + Math.sin(this.angle) * this.radius;
-    }
+    ctx.strokeStyle = `rgba(${this.color},${this.opacity})`;
+    ctx.lineWidth = this.size;
+    ctx.lineCap = "round";
+
+    ctx.shadowBlur = 6;
+    ctx.shadowColor = `rgba(${this.color},${this.opacity})`;
+
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
 }
 
 export default function MagneticParticles() {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-        const ctx = canvas.getContext("2d", { alpha: true });
-        if (!ctx) return;
+    const ctx = canvas.getContext("2d", { alpha: false });
+    if (!ctx) return;
 
-        let particles: Particle[] = [];
-        let animationFrameId: number;
+    let particles: Particle[] = [];
+    let animationFrameId: number;
 
-        const mouse = {
-            x: -1000,
-            y: -1000,
-            active: false
-        };
+    const mouse = { x: 0, y: 0, active: false };
 
-        const handleMouseMove = (e: MouseEvent) => {
-            const rect = canvas.getBoundingClientRect();
-            mouse.x = e.clientX - rect.left;
-            mouse.y = e.clientY - rect.top;
-            mouse.active = true;
-        };
+    const resize = () => {
+      const dpr = window.devicePixelRatio || 1;
 
-        const handleMouseLeave = () => {
-            mouse.active = false;
-        };
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
 
-        canvas.addEventListener("mousemove", handleMouseMove);
-        canvas.addEventListener("mouseleave", handleMouseLeave);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-        let centerX = 0;
-        let centerY = 0;
+      init();
+    };
 
-        const resize = () => {
-            if (canvas) {
-                canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
-                canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
-                centerX = canvas.width * 0.7; // Vortex center point X
-                centerY = canvas.height * 0.5; // Vortex center point Y
-                init();
-            }
-        };
+    let centerX = 0;
+    let centerY = 0;
+    let rotation = 0;
 
-        const init = () => {
-            particles = [];
-            // Calculate a great density: roughly 800 particles for a standard 1080p hero
-            const area = canvas.width * canvas.height;
-            const particleCount = Math.floor(area / 2500); // Much denser than previous iteration to form the rings
+    const init = () => {
+      particles = [];
 
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle(canvas.width, canvas.height));
-            }
-        };
+      centerX = window.innerWidth * 0.8; // 🔥 off-screen to right
+      centerY = window.innerHeight * 0.5;
 
-        const animate = () => {
-            if (!ctx || !canvas) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const count = 360;
 
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update(mouse, centerX, centerY);
-                particles[i].draw(ctx, centerX, centerY);
-            }
+      for (let i = 0; i < count; i++) {
+        const radius = Math.pow(Math.random(), 1.4) * 700;
+        const angle = Math.random() * Math.PI * 2 + radius * 0.003;
 
-            animationFrameId = requestAnimationFrame(animate);
-        };
+        const p = new Particle(radius, angle);
+        p.updateBase(centerX, centerY, 0);
+        p.x = p.baseX;
+        p.y = p.baseY;
 
-        // Delay initial resize slightly to prevent sizing issues on rapid loads
-        const initialTimer = setTimeout(() => {
-            resize();
-            animate();
-        }, 100);
+        particles.push(p);
+      }
+    };
 
-        window.addEventListener("resize", resize);
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    };
 
-        return () => {
-            clearTimeout(initialTimer);
-            window.removeEventListener("resize", resize);
-            if (canvas) {
-                canvas.removeEventListener("mousemove", handleMouseMove);
-                canvas.removeEventListener("mouseleave", handleMouseLeave);
-            }
-            cancelAnimationFrame(animationFrameId);
-        };
-    }, []);
+    const handleMouseLeave = () => {
+      mouse.active = false;
+    };
 
-    return (
-        <canvas
-            ref={canvasRef}
-            className="absolute inset-0 w-full h-full pointer-events-auto z-10"
-            aria-hidden="true"
-        />
-    );
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("resize", resize);
+
+    const animate = () => {
+      ctx.fillStyle = "#050505";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      rotation += 0.0006;
+
+      for (const p of particles) {
+        p.updateBase(centerX, centerY, rotation);
+        p.update(mouse.x, mouse.y, mouse.active);
+        p.draw(ctx, centerX, centerY);
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    resize();
+    animate();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 z-0 left-0 w-12"
+      aria-hidden="true"
+    />
+  );
 }

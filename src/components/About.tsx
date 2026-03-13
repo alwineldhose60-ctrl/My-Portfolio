@@ -57,8 +57,8 @@ export default function About() {
                             backgroundPosition: "center",
                             backgroundImage: "url('/images/profile.png')",
                             // Create a very smooth, wide spotlight effect connected to our subtle magnetic mouse springs
-                            maskImage: useTransform(() => `radial-gradient(circle 250px at ${backgroundX.get()} ${backgroundY.get()}, black 40%, transparent 100%)`),
-                            WebkitMaskImage: useTransform(() => `radial-gradient(circle 250px at ${backgroundX.get()} ${backgroundY.get()}, black 40%, transparent 100%)`),
+                            maskImage: useTransform(() => `radial-gradient(circle 250px at ${backgroundX.get()} ${backgroundY.get()}, rgba(176,38,255,0.3) 40%, transparent 100%)`),
+                            WebkitMaskImage: useTransform(() => `radial-gradient(circle 250px at ${backgroundX.get()} ${backgroundY.get()}, rgba(176,38,255,0.3) 40%, transparent 100%)`),
                         }}
                     />
 
@@ -73,10 +73,10 @@ export default function About() {
                     transition={{ duration: 1, ease: "easeOut" }}
                     className="w-full z-20"
                 >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-4">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-4 text-primary drop-shadow-[0_0_15px_rgba(0,255,255,0.5)]">
                         ABOUT
                     </h2>
-                    <a href="mailto:alwineldhose7@gmail.com" className="text-sm md:text-base font-mono text-zinc-500 hover:text-white transition-colors block mb-12 cursor-none">
+                    <a href="mailto:alwineldhose7@gmail.com" className="text-sm md:text-base font-mono text-zinc-500 hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(176,38,255,0.8)] transition-colors block mb-12 cursor-none">
                         alwineldhose7@gmail.com
                     </a>
 

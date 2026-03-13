@@ -55,7 +55,7 @@ export default function CustomCursor() {
         <>
             {/* Outer trailing ring */}
             <motion.div
-                className="fixed top-0 left-0 w-8 h-8 rounded-full border border-white/40 pointer-events-none z-[100] mix-blend-difference"
+                className="fixed top-0 left-0 w-8 h-8 rounded-full border border-primary/50 pointer-events-none z-[100] mix-blend-screen shadow-[0_0_10px_rgba(0,255,255,0.4)]"
                 style={{
                     x: cursorXSpring,
                     y: cursorYSpring,
@@ -70,7 +70,7 @@ export default function CustomCursor() {
             />
             {/* Inner solid dot */}
             <motion.div
-                className="fixed top-0 left-0 w-3 h-3 bg-white rounded-full pointer-events-none z-[100] mix-blend-difference"
+                className="fixed top-0 left-0 w-3 h-3 bg-secondary rounded-full pointer-events-none z-[100] mix-blend-screen shadow-[0_0_10px_rgba(176,38,255,0.8)]"
                 style={{
                     x: cursorX,
                     y: cursorY,
