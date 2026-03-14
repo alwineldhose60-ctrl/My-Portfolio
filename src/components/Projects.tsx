@@ -63,7 +63,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative py-32 text-white bg-[#050505]">
+    <section id="projects" className="relative py-16 text-white bg-[#050505]">
       <div className="container mx-auto px-6 lg:px-24">
         
         <motion.div

@@ -49,9 +49,6 @@ export default function Contact() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h3 className="text-xl md:text-2xl font-black uppercase tracking-[0.2em] text-primary drop-shadow-[0_0_15px_rgba(0,255,255,0.5)] mb-6 border-b border-zinc-800 pb-4 inline-block">
-                My Philosophy
-              </h3>
               <p className="text-zinc-300 font-light leading-relaxed max-w-lg text-sm md:text-base border-l-2 border-primary pl-6">
                 I focus on building modern, scalable, and engaging web experiences. 
                 My goal is not just to build applications, but to create interfaces that feel fast, intuitive, and visually compelling.

@@ -27,7 +27,7 @@ const skillsData = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative py-32 text-white bg-gradient-to-b from-[#050505] to-[#0A0A0A] overflow-hidden">
+    <section id="skills" className="relative py-16 text-white bg-gradient-to-b from-[#050505] to-[#0A0A0A] overflow-hidden">
       <div className="container mx-auto px-6 lg:px-24">
         
         <motion.div
@@ -40,7 +40,8 @@ export default function Skills() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-secondary drop-shadow-[0_0_15px_rgba(176,38,255,0.5)]">
             SKILLS
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-secondary to-transparent md:to-secondary mt-4"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-secondary to-transparent mt-4"></div>
+
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
@@ -49,9 +50,8 @@ export default function Skills() {
               key={groupIndex}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: groupIndex * 0.15 }}
-              className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-2xl p-8 hover:border-zinc-700/80 transition-all duration-300 hover:shadow-[0_0_30px_rgba(176,38,255,0.1)]"
+              className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-2xl p-8 hover:border-zinc-700/80 hover:shadow-[0_0_30px_rgba(176,38,255,0.1)]"
             >
               <h3 className="text-sm font-black tracking-[0.2em] uppercase mb-8 text-white border-b border-zinc-700/50 pb-4 inline-block">
                 {skillGroup.category}

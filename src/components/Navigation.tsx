@@ -20,7 +20,7 @@ export default function Navigation() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${scrolled ? "bg-[#050505]/80 backdrop-blur-md py-4 border-primary/20 shadow-[0_4px_30px_rgba(0,255,255,0.1)]" : "bg-transparent py-8 border-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500  ${scrolled ? "bg-[#050505]/80 backdrop-blur-md py-4 shadow-[0_4px_30px_rgba(0,255,255,0.1)]" : "bg-transparent py-8 border-transparent"
         }`}
     >
       <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between">

@@ -4,6 +4,8 @@ import { delay, motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import MagneticParticles from "./MagneticParticles";
 import Image from "next/image";
+import { FaLinkedin, FaGithub, FaInstagram, FaPhone } from "react-icons/fa";
+import { SiGmail } from "react-icons/si";
 
 export default function Hero() {
   const ref = useRef(null);
@@ -41,7 +43,7 @@ export default function Hero() {
         </div>
         
         {/* Foreground Content */}
-        <div className="relative z-10 container mx-auto px-6 lg:px-24 h-full flex flex-col justify-center">
+        <div className="relative z-10 container mx-auto px-6 lg:px-24 h-full">
           <motion.div
             style={{ y: textY, opacity, filter: `blur(${blur}px)` }}
             className="flex flex-col items-start w-full lg:w-3/5"
@@ -158,17 +160,72 @@ export default function Hero() {
               className="flex justify-start gap-6 mt-12 w-full max-w-3xl"
             >
               {[
-                { name: "LinkedIn", url: "https://linkedin.com/in/alwineldhose", icon: "in" },
-                { name: "GitHub", url: "https://github.com/alwineldhose60-ctrl", icon: "Gh" },
+                { 
+                  name: "LinkedIn", 
+                  url: "https://www.linkedin.com/in/alwin-eldhose-97a892254", 
+                  icon: <FaLinkedin size={24} />,
+                  hoverColor: "hover:text-[#0a66c2]",
+                  hoverShadow: "hover:drop-shadow-[0_0_10px_rgba(10,102,194,0.8)]"
+                },
+                { 
+                  name: "GitHub", 
+                  url: "https://github.com/alwineldhose60-ctrl", 
+                  icon: <FaGithub size={24} />,
+                  hoverColor: "hover:text-white",
+                  hoverShadow: "hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                },
+                { 
+                  name: "Instagram", 
+                  url: "https://www.instagram.com/al_w_i_n_?igsh=aXZ3cXBlYmJnaDhi", 
+                  icon: (
+                    <div className="relative w-6 h-6">
+                      {/* Base Icon */}
+                      <FaInstagram size={24} className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
+                      {/* Gradient Icon Wrapper */}
+                      <svg width="0" height="0" className="absolute">
+                        <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#f09433" />
+                          <stop offset="25%" stopColor="#e6683c" />
+                          <stop offset="50%" stopColor="#dc2743" />
+                          <stop offset="75%" stopColor="#cc2366" />
+                          <stop offset="100%" stopColor="#bc1888" />
+                        </linearGradient>
+                      </svg>
+                      <FaInstagram 
+                        size={24} 
+                        className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" 
+                        style={{ fill: "url(#ig-grad)" }} 
+                      />
+                    </div>
+                  ),
+                  hoverColor: "", // Color is handled by the crossfaded SVG fill
+                  hoverShadow: "hover:drop-shadow-[0_0_10px_rgba(220,39,67,0.8)]"
+                },
+                { 
+                  name: "Gmail", 
+                  url: "mailto:alwineldhose7@gmail.com", 
+                  icon: <SiGmail size={24} />,
+                  hoverColor: "hover:text-[#EA4335]",
+                  hoverShadow: "hover:drop-shadow-[0_0_10px_rgba(234,67,53,0.8)]"
+                },
+                { 
+                  name: "Phone", 
+                  url: "tel:+919562604824", // Placeholder phone number
+                  icon: <FaPhone size={22} />,
+                  hoverColor: "hover:text-[#25D366]", // WhatsApp/Phone green
+                  hoverShadow: "hover:drop-shadow-[0_0_10px_rgba(37,211,102,0.8)]"
+                },
               ].map((social) => (
                 <a
                   key={social.name}
                   href={social.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-zinc-500 hover:text-white font-bold text-lg transition-colors cursor-none"
+                  className={`text-zinc-500 font-bold text-lg transition-all duration-300 cursor-none relative group ${social.hoverColor} ${social.hoverShadow}`}
                 >
-                  {social.icon}
+                  <span className="relative z-10 transition-transform duration-300 group-hover:scale-110 inline-block">
+                     {social.icon}
+                  </span>
                 </a>
               ))}
             </motion.div>
