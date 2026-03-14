@@ -54,7 +54,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-xl md:text-3xl font-light tracking-[0.2kem] text-zinc-400 font-mono uppercase"
+                className="text-xl md:text-3xl font-light tracking-[0.2kem] text-zinc-400 font-orbitron  uppercase"
               >
                 Hi I'm
               </motion.h2>
@@ -68,7 +68,7 @@ export default function Hero() {
                   ease: [0.16, 1, 0.3, 1],
                   delay: 0.2,
                 }}
-                className="text-6xl sm:text-7xl md:text-8xl lg:text-[130px] font-black tracking-[0.2em[]] leading-none my-2 uppercase -z-10 bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text"
+                className="text-6xl sm:text-7xl md:text-8xl lg:text-[130px] font-black tracking-[0.2em] leading-none my-2 uppercase -z-10 bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text"
               >
                 ALWIN
               </motion.h1>

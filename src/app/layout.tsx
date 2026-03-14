@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Orbitron, Moirai_One, Uncial_Antiqua, Major_Mono_Display } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 
@@ -10,6 +10,29 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const orbitron = Orbitron({
+  variable: "--font-orbitron-google",
+  subsets: ["latin"],
+});
+
+const moiraiOne = Moirai_One({
+  weight: "400",
+  variable: "--font-moirai-google",
+  subsets: ["latin"],
+});
+
+const uncialAntiqua = Uncial_Antiqua({
+  weight: "400",
+  variable: "--font-uncial-google",
+  subsets: ["latin"],
+});
+
+const majorMonoDisplay = Major_Mono_Display({
+  weight: "400",
+  variable: "--font-major-mono-google",
   subsets: ["latin"],
 });
 
@@ -26,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} ${moiraiOne.variable} ${uncialAntiqua.variable} ${majorMonoDisplay.variable} antialiased`}
       >
                 <Navigation />
         

@@ -15,6 +15,10 @@
   --color-secondary: var(--secondary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-orbitron: var(--font-orbitron-google), sans-serif;
+  --font-moirai: var(--font-moirai-google), system-ui;
+  --font-uncial: var(--font-uncial-google), system-ui;
+  --font-major-mono: var(--font-major-mono-google), monospace;
 }
 
 @media (prefers-color-scheme: dark) {
