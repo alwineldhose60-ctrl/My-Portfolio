@@ -29,23 +29,23 @@ export default function Contact() {
           
           <FadeIn delay={0.2} className="flex gap-6">
             <Magnetic>
-              <Link href="mailto:contact@example.com" className="group flex items-center gap-2 text-white font-medium hover:text-gray-300 transition-colors">
+              <Link href="mailto:alwineldhose7@gmail.com" className="group flex items-center gap-2 text-white font-medium hover:text-gray-300 transition-colors">
                 Email
                 <MoveUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
               </Link>
             </Magnetic>
             <Magnetic>
-              <Link href="#" className="group flex items-center gap-2 text-white font-medium hover:text-gray-300 transition-colors">
+              <Link href="https://www.linkedin.com/in/alwin-eldhose-97a892254" className="group flex items-center gap-2 text-white font-medium hover:text-gray-300 transition-colors">
                 LinkedIn
                 <MoveUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
               </Link>
             </Magnetic>
-            <Magnetic>
+            {/* <Magnetic>
               <Link href="#" className="group flex items-center gap-2 text-white font-medium hover:text-gray-300 transition-colors">
                 GitHub
                 <MoveUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
               </Link>
-            </Magnetic>
+            </Magnetic> */}
           </FadeIn>
         </div>
 
@@ -54,7 +54,7 @@ export default function Contact() {
           <FadeIn delay={0.3}>
             <Magnetic strength={30}>
               <Link 
-                href="mailto:contact@example.com"
+                href="mailto:alwineldhose7@gmail.com"
                 className="relative flex items-center justify-center w-48 h-48 md:w-64 md:h-64 rounded-full bg-white text-black text-2xl md:text-3xl font-bold tracking-tight hover:scale-105 transition-transform duration-500 overflow-hidden group"
               >
                 <div className="absolute inset-0 bg-gray-200 transform translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 rounded-full"></div>

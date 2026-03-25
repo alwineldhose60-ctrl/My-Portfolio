@@ -46,42 +46,44 @@ export default function Projects() {
     <section id="projects" className="py-24 px-4 md:px-10 max-w-7xl mx-auto relative z-10 border-t border-white/5" ref={container}>
       <FadeIn>
         <div className="flex items-center gap-4 mb-24">
-          <div className="h-[1px] w-12 bg-white/30"></div>
+          <div className="h-px w-12 bg-white/30"></div>
           <span className="uppercase tracking-widest text-sm text-gray-400 font-medium pb-1 border-b border-gray-600">
             Selected Work
           </span>
         </div>
       </FadeIn>
 
-      <div className="relative flex flex-col gap-8 md:gap-32 w-full mt-10">
-        {projects.map((project, index) => {
-          const targetScale = 1 - ( (projects.length - index) * 0.05);
-
-          return (
-            <ProjectCard 
-              key={index} 
-              i={index}
-              project={project}
-              progress={scrollYProgress}
-              range={[index * 0.25, 1]}
-              targetScale={targetScale}
-            />
-          );
-        })}
+      <div className="relative flex flex-col gap-12 md:gap-24 w-full mt-10">
+        {projects.map((project, index) => (
+          <ProjectCard 
+            key={index} 
+            project={project}
+          />
+        ))}
       </div>
     </section>
   );
 }
 
-function ProjectCard({ i, project, progress, range, targetScale }: any) {
+function ProjectCard({ project }: any) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const scale = useTransform(progress, range, [1, targetScale]);
+  
+  // Track this specific card's position relative to the viewport
+  const { scrollYProgress: cardY } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Scale down when entering (0), scale to normal in middle (0.3-0.7), scale down when leaving (1)
+  const scale = useTransform(cardY, [0, 0.3, 0.7, 1], [0.8, 1, 1, 0.8]);
+  // Fade in at the edges, stay fully visible in the middle
+  const opacity = useTransform(cardY, [0, 0.2, 0.8, 1], [0.3, 1, 1, 0.3]);
 
   return (
-    <div ref={containerRef} className="h-screen flex items-center justify-center sticky top-0">
-      <motion.div 
-        style={{ scale, top: `calc(-10vh + ${i * 40}px)` }}
-        className={`relative w-full h-[500px] md:h-[600px] rounded-3xl p-8 md:p-12 flex flex-col justify-between border border-white/10 bg-gradient-to-br ${project.color} backdrop-blur-xl transform-origin-top`}
+    <div ref={containerRef} className="w-full flex items-center justify-center">
+      <motion.div
+         style={{ scale, opacity }}
+         className={`relative w-full h-[500px] md:h-[600px] rounded-3xl p-8 md:p-12 flex flex-col justify-between border border-white/10 bg-gradient-to-br ${project.color} backdrop-blur-xl`}
       >
         <div className="max-w-3xl">
           <p className="text-gray-400 font-mono mb-4 text-sm md:text-base">{project.role}</p>
