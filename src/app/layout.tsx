@@ -8,8 +8,8 @@ import CustomCursor from "@/components/ui/CustomCursor";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "My Portfolio",
-  description: "Personal Portfolio",
+  title: "Alwin Eldhose - Portfolio",
+  description: "Full-Stack Developer Portfolio of Alwin Eldhose",
 };
 
 export default function RootLayout({
