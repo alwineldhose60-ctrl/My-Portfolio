@@ -89,6 +89,7 @@ export default function About() {
           className="object-cover hidden md:block -z-1 rounded-full border-2 border-white/30"
           priority
         />
+
       </motion.div>
       <div className="">
         <h2 className="text-3xl md:text-5xl medium leading-[1.2] tracking-tight flex flex-wrap gap-x-3 gap-y-2 mb-12 max-w-3xl">
@@ -104,6 +105,7 @@ export default function About() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-gray-400 text-lg leading-relaxed">
+
           <FadeIn delay={0.2}>
             <p>
               I started my journey as a Software Developer Intern, where I

@@ -4,11 +4,12 @@ import FadeIn from "../animations/FadeIn";
 import Magnetic from "../animations/Magnetic";
 import { MoveUpRight } from "lucide-react";
 import Link from "next/link";
+import { SVG } from "./SVG";
 
 export default function Contact() {
   return (
     <section id="contact" className="py-32 px-4 md:px-10 max-w-7xl mx-auto relative z-10 border-t border-white/5 min-h-[80vh] flex flex-col justify-center">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         
         {/* Left Column Text */}
         <div>
@@ -48,7 +49,7 @@ export default function Contact() {
             </Magnetic> */}
           </FadeIn>
         </div>
-
+<SVG/>
         {/* Right Column Huge CTA */}
         <div className="flex justify-center lg:justify-end">
           <FadeIn delay={0.3}>
